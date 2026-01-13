@@ -52,6 +52,7 @@ exports.UpdateProvince = async (req, res) => {
   try {
     const result = await Province.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      runValidators: true,
     });
     if (result) {
       res.status(200).json("Province Updated Successfuly");

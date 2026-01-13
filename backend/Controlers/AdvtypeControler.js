@@ -1,32 +1,17 @@
-const { Country } = require("../Models/Country");
+const { AdvType } = require("../Models/AdvType");
 
-exports.CreateCountry = async (req, res) => {
+exports.CreateAdvType = async (req, res) => {
   try {
-    let { Name } = req.body;
-    const result = await Country.create({ Name });
+    const result = await AdvType.create(req.body);
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json(error.message);
   }
 };
 
-exports.GetAllCountries = async (req, res) => {
+exports.GetAllAdvType = async (req, res) => {
   try {
-    // let { Name } = req.body;
-    const result = await Country.find();
-    if (result.length > 0) {
-      res.status(200).json(result);
-    } else {
-      res.status(404).json("Not Found");
-    }
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-
-exports.GetCountryById = async (req, res) => {
-  try {
-    const result = await Country.findById(req.params.id);
+    const result = await AdvType.find();
     if (result) {
       res.status(200).json(result);
     } else {
@@ -37,11 +22,11 @@ exports.GetCountryById = async (req, res) => {
   }
 };
 
-exports.DeleteCountry = async (req, res) => {
+exports.GetAdvTypeById = async (req, res) => {
   try {
-    const result = await Country.findByIdAndDelete(req.params.id);
+    const result = await AdvType.findById(req.params.id);
     if (result) {
-      return res.status(200).json("Country Deleted Successfuly");
+      res.status(200).json(result);
     } else {
       res.status(404).json("Not Found");
     }
@@ -50,14 +35,27 @@ exports.DeleteCountry = async (req, res) => {
   }
 };
 
-exports.UpdateCountry = async (req, res) => {
+exports.DeleteAdvType = async (req, res) => {
   try {
-    const result = await Country.findByIdAndUpdate(req.params.id, req.body, {
+    const result = await AdvType.findByIdAndDelete(req.params.id);
+    if (result) {
+      return res.status(200).json("AdvType Deleted Successfuly");
+    } else {
+      res.status(404).json("Not Found");
+    }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+exports.UpdateAdvType = async (req, res) => {
+  try {
+    const result = await AdvType.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
     if (result) {
-      return res.status(200).json("Country Updated Successfuly");
+      return res.status(200).json("AdvType Updated Successfuly");
     } else {
       res.status(404).json("Not Found");
     }

@@ -2,7 +2,6 @@ const { Country } = require("../Models/Country");
 
 exports.CreateCountry = async (req, res) => {
   try {
-    console.log("hello");
     let { Name } = req.body;
     const result = await Country.create({ Name });
     res.status(201).json(result);
@@ -53,7 +52,9 @@ exports.DeleteCountry = async (req, res) => {
 
 exports.UpdateCountry = async (req, res) => {
   try {
-    const result = await Country.findByIdAndUpdate(req.params.id);
+    const result = await Country.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (result) {
       return res.status(200).json("Country Updated Successfuly");
     } else {

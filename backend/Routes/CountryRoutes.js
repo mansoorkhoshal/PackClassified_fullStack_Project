@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Country = require("../Controlers/CountryControler");
 
+// Routes For Country
 router.post("/", Country.CreateCountry);
 router.get("/", Country.GetAllCountries);
 router.get("/:id", Country.GetCountryById);

@@ -2,7 +2,15 @@ const { User } = require("../Models/User");
 
 exports.CreateUser = async (req, res) => {
   try {
-    const result = await User.create(req.body);
+    const { firstName, email, password } = req.body;
+ 
+
+    const result = await User.create({
+      firstName,
+      email,
+      password,
+      image: req.file ? req.file.path : null,
+    });
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json(error.message);
